@@ -23,6 +23,7 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.Base64;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
@@ -654,12 +655,19 @@ public class OpenNoteCameraView extends JavaCameraView implements PictureCallbac
 
         Imgcodecs.imwrite(fileName, endDoc);
 
+        int cols = endDoc.cols(); 
+        int rows = endDoc.rows(); 
+        int elemSize = (int) endDoc.elemSize();
+        
+        byte[] data = new byte[cols * rows * elemSize];
+        String dataString = new String(Base64.encode(data, Base64.DEFAULT));
 
         endDoc.release();
 
         WritableMap data = new WritableNativeMap();
         if(this.listener != null){
             data.putString("path",fileName);
+            data.putString("base64_dest",dataString);
             this.listener.onPictureTaken(data);
         }
 
