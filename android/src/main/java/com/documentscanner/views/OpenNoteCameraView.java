@@ -659,8 +659,8 @@ public class OpenNoteCameraView extends JavaCameraView implements PictureCallbac
         int rows = endDoc.rows(); 
         int elemSize = (int) endDoc.elemSize();
         
-        byte[] data = new byte[cols * rows * elemSize];
-        String dataString = new String(Base64.encode(data, Base64.DEFAULT));
+        byte[] Imagedata = new byte[cols * rows * elemSize];
+        String dataString = new String(Base64.encode(Imagedata, Base64.DEFAULT));
 
         endDoc.release();
 
